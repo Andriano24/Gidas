@@ -4,7 +4,6 @@ import sys
 import threading
 import time
 
-# import bettercam
 import mss
 import win32api
 import win32gui
@@ -73,7 +72,6 @@ print(SEPARATOR_LINE + "\n")
 print(f"[INFO] Dialogue autoskip: Enabled")
 
 sct = mss.mss()
-# camera = bettercam.create(output_color="BGRA", max_buffer_len=1)
 
 def main():
     global visible_icon
@@ -89,15 +87,6 @@ def main():
     
     image = sct.grab(MSS_REGION)
     frame = ImageToFrame(image)
-
-    # frame = camera.grab(region=REGION)
-    # frame = camera.get_latest_frame()
-
-    if frame is None:
-        # print("[DEBUG] Failed to capture frame")
-        return
-    
-    # print("[DEBUG] Frame captured")
 
     if is_color_near(frame[THIRD_ICON_PIXELS_CROP["first"][1], THIRD_ICON_PIXELS_CROP["first"][0]], FLOUR_COLOR_BGR) and is_color_near(frame[THIRD_ICON_PIXELS_CROP["second"][1], THIRD_ICON_PIXELS_CROP["second"][0]], FLOUR_COLOR_BGR):
         if visible_icon != "third":
