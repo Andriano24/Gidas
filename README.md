@@ -65,7 +65,7 @@ A simple script that detects if there is an active dialogue to skip.
 ## Limitations
 
 * The only screen size supported is 1920x1080.
-* The game has to run in fullscreen or borderless.
+* The game has to run in fullscreen or borderless and to be on the primary display.
 * No custom keybinds support.
 * No controller support.
 * Always chooses the first option.
