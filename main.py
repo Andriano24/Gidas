@@ -10,7 +10,6 @@ import win32gui
 
 from benchmark import Benchmark
 from constants import AMBER_COLOR_BGR, DIALOGUE_ICON_PIXELS_CROP, FIRST_ICON_PIXELS_CROP, FLOUR_COLOR_BGR, MSS_REGION, SECOND_ICON_PIXELS_CROP, SEPARATOR_LINE, SEPARATOR_TIMES, THIRD_ICON_PIXELS_CROP, VERSION
-from hardware import hardware_key
 
 if not ctypes.windll.shell32.IsUserAnAdmin():
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
@@ -35,6 +34,12 @@ class ImageToFrame:
 
 def is_color_near(current_pixel, target_color, tolerance=5):
     return all(abs(int(c) - int(t)) <= tolerance for c, t in zip(current_pixel[:3], target_color))
+
+def press_interact_key(hwnd ,vk_code=0x46):
+    scan_code = win32api.MapVirtualKey(vk_code, 0)
+    win32api.PostMessage(hwnd, 0x0100, vk_code, (scan_code << 16) | 1)
+    time.sleep(random.uniform(0.06, 0.18))
+    win32api.PostMessage(hwnd, 0x0101, vk_code, (scan_code << 16) | (1 << 30) | (1 << 31) | 1)
 
 def monitor_keys():
     global script_active
@@ -93,7 +98,7 @@ def main():
             print("[INFO] Skipping dialogue...")
             # print("[DEBUG] Hide icon visible")
 
-        hardware_key()
+        press_interact_key(hwnd)
         visible_icon = "third"
         return
     
@@ -102,7 +107,7 @@ def main():
             print("[INFO] Skipping dialogue...")
             # print("[DEBUG] Auto-play icon visible")
 
-        hardware_key()
+        press_interact_key(hwnd)
         visible_icon = "first"
         return
         
@@ -111,7 +116,7 @@ def main():
             print("[INFO] Skipping dialogue...")
             # print("[DEBUG] Dialogue review icon visible")
 
-        hardware_key()
+        press_interact_key(hwnd)
         visible_icon = "second"
         return
 
@@ -120,7 +125,7 @@ def main():
             print("[INFO] Skipping dialogue...")
             # print("[DEBUG] Dialogue icon visible")
 
-        hardware_key()
+        press_interact_key(hwnd)
         visible_icon = "dialogue"
         return
     
