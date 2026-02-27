@@ -26,34 +26,34 @@ A simple script that detects if there is an active dialogue to skip.
 
 1. Download or clone the repository:
 
-```text
-git clone git@github.com:Andriano24/Gidas.git
-cd Gidas
-```
+   ```text
+   git clone git@github.com:Andriano24/Gidas.git
+   cd Gidas
+   ```
 
-1. Create a virtual environment
+2. Create a virtual environment:
 
-```text
-python -m venv .venv
-```
+   ```text
+   python -m venv .venv
+   ```
 
-1. Activate the virtual environment.
+3. Activate the virtual environment:
 
-```text
-.\.venv\Scripts\activate
-```
+   ```text
+   .\.venv\Scripts\activate
+   ```
 
-1. Download the dependencies.
+4. Download the dependencies:
 
-```text
-pip install -r .\requirements.txt
-```
+   ```text
+   pip install -r .\requirements.txt
+   ```
 
-1. Run the script.
+5. Run the script:
 
-```text
-python main.py
-```
+   ```text
+   python main.py
+   ```
 
 ## Controls
 
