@@ -1,4 +1,5 @@
 import ctypes
+from datetime import datetime
 import random
 import sys
 import threading
@@ -35,6 +36,9 @@ class ImageToFrame:
 def is_color_near(current_pixel, target_color, tolerance=5):
     return all(abs(int(c) - int(t)) <= tolerance for c, t in zip(current_pixel[:3], target_color))
 
+def get_time():
+    return datetime.now().strftime("%d/%m/%Y %H:%M:%S.%f")[:-3]
+
 def press_interact_key(hwnd ,vk_code=0x46):
     scan_code = win32api.MapVirtualKey(vk_code, 0)
     win32api.PostMessage(hwnd, 0x0100, vk_code, (scan_code << 16) | 1)
@@ -59,7 +63,7 @@ def monitor_keys():
                 if action == "TOGGLE":
                     script_active = not script_active
                     status = "Enabled" if script_active else "Disabled"
-                    print(f"[INFO] Dialogue autoskip: {status}")
+                    print(f"[{get_time()}] INFO: Dialogue autoskip: {status}")
                 
                 elif action == "BENCHMARK":
                     benchmark.get_summary()
@@ -74,7 +78,7 @@ print(SEPARATOR_LINE)
 print(f"{"G.I.D.A.S - Genshin Impact Dialogue Autoskip Script v" + VERSION:^{SEPARATOR_TIMES}}")
 print(f"{"[F9] Toggle script [F10] Show benchmark":^{SEPARATOR_TIMES}}")
 print(SEPARATOR_LINE + "\n")
-print(f"[INFO] Dialogue autoskip: Enabled")
+print(f"[{get_time()}] INFO: Dialogue autoskip: Enabled")
 
 sct = mss.mss()
 
@@ -95,7 +99,7 @@ def main():
 
     if is_color_near(frame[THIRD_ICON_PIXELS_CROP["first"][1], THIRD_ICON_PIXELS_CROP["first"][0]], FLOUR_COLOR_BGR) and is_color_near(frame[THIRD_ICON_PIXELS_CROP["second"][1], THIRD_ICON_PIXELS_CROP["second"][0]], FLOUR_COLOR_BGR):
         if visible_icon != "third":
-            print("[INFO] Skipping dialogue...")
+            print(f"[{get_time()}] INFO: Skipping dialogue...")
             # print("[DEBUG] Hide icon visible")
 
         press_interact_key(hwnd)
@@ -104,7 +108,7 @@ def main():
     
     if is_color_near(frame[FIRST_ICON_PIXELS_CROP["first"][1], FIRST_ICON_PIXELS_CROP["first"][0]], FLOUR_COLOR_BGR) and is_color_near(frame[FIRST_ICON_PIXELS_CROP["second"][1], FIRST_ICON_PIXELS_CROP["second"][0]], FLOUR_COLOR_BGR):
         if visible_icon != "first":
-            print("[INFO] Skipping dialogue...")
+            print(f"[{get_time()}] INFO: Skipping dialogue...")
             # print("[DEBUG] Auto-play icon visible")
 
         press_interact_key(hwnd)
@@ -113,7 +117,7 @@ def main():
         
     if is_color_near(frame[SECOND_ICON_PIXELS_CROP["first"][1], SECOND_ICON_PIXELS_CROP["first"][0]], FLOUR_COLOR_BGR) and is_color_near(frame[SECOND_ICON_PIXELS_CROP["second"][1], SECOND_ICON_PIXELS_CROP["second"][0]], FLOUR_COLOR_BGR):
         if visible_icon != "second":
-            print("[INFO] Skipping dialogue...")
+            print(f"[{get_time()}] INFO: Skipping dialogue...")
             # print("[DEBUG] Dialogue review icon visible")
 
         press_interact_key(hwnd)
@@ -122,7 +126,7 @@ def main():
 
     if is_color_near(frame[DIALOGUE_ICON_PIXELS_CROP["first"][1], DIALOGUE_ICON_PIXELS_CROP["first"][0]], AMBER_COLOR_BGR) or is_color_near(frame[DIALOGUE_ICON_PIXELS_CROP["second"][1], DIALOGUE_ICON_PIXELS_CROP["second"][0]], AMBER_COLOR_BGR):
         if visible_icon != "dialogue":
-            print("[INFO] Skipping dialogue...")
+            print(f"[{get_time()}] INFO: Skipping dialogue...")
             # print("[DEBUG] Dialogue icon visible")
 
         press_interact_key(hwnd)
