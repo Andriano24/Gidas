@@ -2,6 +2,8 @@ import os
 import random
 import time
 
+from datetime import datetime
+
 import psutil
 
 from constants import SEPARATOR_LINE, SEPARATOR_TIMES
@@ -82,8 +84,9 @@ class Benchmark:
         print("\n" + SEPARATOR_LINE)
         print(f"{"BENCHMARK SUMMARY":^{SEPARATOR_TIMES}}")
         print(SEPARATOR_LINE)
-        print(f"{f' Runtime: {h:02}:{m:02}:{s:02}, Core: {self.cpu_core}':<{SEPARATOR_TIMES // 2}}{f'Loops: {self.total_loops}, Snapshots: {self.total_snaps}':>{SEPARATOR_TIMES // 2}}")
-        print(f" CPU (%)   | {c_now:>6.2f} | Low: {c_min:>6.2f} | Avg: {c_avg:>6.2f} | High: {c_max:>6.2f}")
-        print(f" RAM (MB)  | {r_now:>6.1f} | Low: {r_min:>6.1f} | Avg: {r_avg:>6.1f} | High: {r_max:>6.1f}")
-        print(f" Loop (ms) | {l_now:>6.1f} | Low: {l_min:>6.1f} | Avg: {l_avg:>6.1f} | High: {l_max:>6.1f}")
+        print(f"{f' Runtime: {h:02}:{m:02}:{s:02}':<{SEPARATOR_TIMES // 2}}{f'Core: {self.cpu_core}':>{SEPARATOR_TIMES // 2}}")
+        print(f"  CPU (%)   | {c_now:>6.2f} | Low: {c_min:>6.2f} | Avg: {c_avg:>6.2f} | High: {c_max:>6.2f}")
+        print(f"  RAM (MB)  | {r_now:>6.1f} | Low: {r_min:>6.1f} | Avg: {r_avg:>6.1f} | High: {r_max:>6.1f}")
+        print(f"  Loop (ms) | {l_now:>6.1f} | Low: {l_min:>6.1f} | Avg: {l_avg:>6.1f} | High: {l_max:>6.1f}")
+        print(f"{f' Loops: {self.total_loops}':<{SEPARATOR_TIMES // 2}}{f'Snaps: {self.total_snaps}':>{SEPARATOR_TIMES // 2}}")
         print(SEPARATOR_LINE + "\n")
