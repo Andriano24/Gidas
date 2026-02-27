@@ -38,7 +38,7 @@ def is_color_near(current_pixel, target_color, tolerance=5):
 def press_interact_key(hwnd ,vk_code=0x46):
     scan_code = win32api.MapVirtualKey(vk_code, 0)
     win32api.PostMessage(hwnd, 0x0100, vk_code, (scan_code << 16) | 1)
-    time.sleep(random.uniform(0.06, 0.18))
+    time.sleep(max(0.08, random.gauss(0.10, 0.01)))
     win32api.PostMessage(hwnd, 0x0101, vk_code, (scan_code << 16) | (1 << 30) | (1 << 31) | 1)
 
 def monitor_keys():
@@ -137,7 +137,7 @@ try:
         main()
         end = time.perf_counter()
         benchmark.update(start, end)
-        time.sleep(random.uniform(0.1, 0.2))
+        time.sleep(max(0.09, random.gauss(0.16, 0.03)))
 except Exception as e:
     print(f"[FATAL] {e}")
 except KeyboardInterrupt:
